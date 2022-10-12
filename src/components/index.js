@@ -1,0 +1,9 @@
+export { default as Navbar } from "./Navbar";
+export { default as Header } from "./Header";
+export { default as Search } from "./Search";
+export { default as Featured } from "./Featured";
+export { default as Property } from "./Property";
+export { default as FeaturedProperties } from "./FeaturedProperties";
+export { default as Newsletter } from "./Newsletter";
+export { default as Footer } from "./Footer";
+export { default as SearchItem } from "./SearchItem";
