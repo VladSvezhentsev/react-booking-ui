@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
    faBed,
    faCalendarDays,
@@ -10,10 +10,11 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../context/SearchContext";
 
 function Search() {
    const [openDate, setOpenDate] = useState(false);
-   const [date, setDate] = useState([
+   const [dates, setDates] = useState([
       {
          startDate: new Date(),
          endDate: new Date(),
@@ -24,12 +25,15 @@ function Search() {
    const [openOptions, setOpenOptions] = useState(false);
    const [options, setOptions] = useState({
       adults: 2,
-      children: 1,
-      rooms: 2,
+      children: 0,
+      rooms: 1,
    });
 
    const [destination, setDestination] = useState("");
    const navigate = useNavigate();
+   const dateRef = useRef(null);
+
+   const { dispatch } = useContext(SearchContext);
 
    const handleOption = (name, operation) => {
       setOptions((prev) => {
@@ -41,8 +45,25 @@ function Search() {
    };
 
    const handleSearch = () => {
-      navigate("/hotels", { state: { destination, date, options } });
+      dispatch({
+         type: "NEW_SEARCH",
+         payload: { destination, dates, options },
+      });
+      navigate("/hotels", { state: { destination, dates, options } });
    };
+
+   useEffect(() => {
+      const handleClickOutside = (e) => {
+         if (!e.composedPath().includes(dateRef.current)) {
+            setOpenDate(false);
+         }
+      };
+
+      document.body.addEventListener("click", handleClickOutside);
+
+      return () =>
+         document.body.removeEventListener("click", handleClickOutside);
+   }, []);
 
    return (
       <div className="header__search">
@@ -60,24 +81,23 @@ function Search() {
          </div>
          <div
             className="header__search-item"
-            onClick={() => setOpenDate(!openDate)}
+            ref={dateRef}
+            onClick={() => setOpenDate(true)}
          >
             <FontAwesomeIcon
                icon={faCalendarDays}
                className="header__search-item__icon"
             />
             <span className="header__search-item__text">
-               {`${format(date[0].startDate, "dd/MM/yyyy")} to ${format(
-                  date[0].endDate,
-                  "dd/MM/yyyy"
-               )}`}
+               {format(dates[0].startDate, "dd/MM/yyyy")} to{" "}
+               {format(dates[0].endDate, "dd/MM/yyyy")}
             </span>
             {openDate && (
                <DateRange
                   editableDateInputs={true}
-                  onChange={(item) => setDate([item.selection])}
+                  onChange={(item) => setDates([item.selection])}
                   moveRangeOnFirstSelection={false}
-                  ranges={date}
+                  ranges={dates}
                   minDate={new Date()}
                   className="date"
                />

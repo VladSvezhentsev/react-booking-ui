@@ -1,62 +1,50 @@
+import ContentLoader from "react-content-loader";
+import { Link } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
+
 function FeaturedProperties() {
+   const { data, loading } = useFetch("/hotels?featured=true&limit=4");
+
    return (
       <div className="fp">
-         <div className="fp__item">
-            <img
-               src="https://cf.bstatic.com/xdata/images/hotel/square600/13125860.webp?k=e148feeb802ac3d28d1391dad9e4cf1e12d9231f897d0b53ca067bde8a9d3355&o=&s=1"
-               alt=""
-               className="fp__item-img"
-            />
-            <span className="fp__item-name">Aparthotel Stare Miasto</span>
-            <span className="fp__item-city">Madrid</span>
-            <span className="fp__item-price">Starting from $120</span>
-            <div className="fp__item-rating">
-               <button>8.9</button>
-               <span>Excellent</span>
-            </div>
-         </div>
-         <div className="fp__item">
-            <img
-               src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/215955381.jpg?k=ff739d1d9e0c8e233f78ee3ced82743ef0355e925df8db7135d83b55a00ca07a&o=&hp=1"
-               alt=""
-               className="fp__item-img"
-            />
-            <span className="fp__item-name">Comfort Suites Airport</span>
-            <span className="fp__item-city">Austin</span>
-            <span className="fp__item-price">Starting from $140</span>
-            <div className="fp__item-rating">
-               <button>9.3</button>
-               <span>Exceptional</span>
-            </div>
-         </div>
-         <div className="fp__item">
-            <img
-               src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/232902339.jpg?k=3947def526b8af0429568b44f9716e79667d640842c48de5e66fd2a8b776accd&o=&hp=1"
-               alt=""
-               className="fp__item-img"
-            />
-            <span className="fp__item-name">Four Seasons Hotel</span>
-            <span className="fp__item-city">Lisbon</span>
-            <span className="fp__item-price">Starting from $99</span>
-            <div className="fp__item-rating">
-               <button>8.8</button>
-               <span>Excellent</span>
-            </div>
-         </div>
-         <div className="fp__item">
-            <img
-               src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/322658536.jpg?k=3fffe63a365fd0ccdc59210188e55188cdb7448b9ec1ddb71b0843172138ec07&o=&hp=1"
-               alt=""
-               className="fp__item-img"
-            />
-            <span className="fp__item-name">Hilton Garden Inn</span>
-            <span className="fp__item-city">Berlin</span>
-            <span className="fp__item-price">Starting from $105</span>
-            <div className="fp__item-rating">
-               <button>8.9</button>
-               <span>Excellent</span>
-            </div>
-         </div>
+         {loading ? (
+            [...new Array(4)].map((_, i) => (
+               <ContentLoader
+                  key={i}
+                  speed={2}
+                  width={245}
+                  height={380}
+                  viewBox="0 0 245 380"
+                  backgroundColor="#f3f3f3"
+                  foregroundColor="#ecebeb"
+               >
+                  <rect x="0" y="0" rx="0" ry="0" width="250" height="250" />
+                  <rect x="0" y="264" rx="0" ry="0" width="150" height="21" />
+                  <rect x="0" y="296" rx="0" ry="0" width="80" height="21" />
+                  <rect x="0" y="330" rx="0" ry="0" width="150" height="21" />
+                  <rect x="9" y="360" rx="0" ry="0" width="103" height="24" />
+               </ContentLoader>
+            ))
+         ) : (
+            <>
+               {data.map((item) => (
+                  <Link to={`/hotels/${item._id}`} key={item._id}>
+                     <div className="fp__item">
+                        <img src={item.photos[0]} className="fp__item-img" />
+                        <span className="fp__item-name">{item.name}</span>
+                        <span className="fp__item-city">{item.city}</span>
+                        <span className="fp__item-price">
+                           Starting from ${item.cheapestPrice}
+                        </span>
+                        <div className="fp__item-rating">
+                           <button>{item.rating}</button>
+                           <span>{item.ratingW}</span>
+                        </div>
+                     </div>
+                  </Link>
+               ))}
+            </>
+         )}
       </div>
    );
 }

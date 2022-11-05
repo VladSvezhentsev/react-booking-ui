@@ -10,6 +10,11 @@ body {
    font-size: 18px;
 }
 
+a {
+   text-decoration: none;
+   color: inherit;
+}
+
 .nav {
    height: 50px;
    background-color: #003580;
@@ -24,6 +29,7 @@ body {
          cursor: pointer;
          color: #003580;
          font-size: 14px;
+         font-weight: 500;
       }
    }
 }
@@ -35,9 +41,11 @@ body {
    display: flex;
    justify-content: space-between;
    align-items: center;
+   padding-top: 10px;
 }
 
 .logo {
+   font-size: 24px;
    font-weight: 500;
 }
 
@@ -50,11 +58,12 @@ body {
 
    .container {
       display: block;
-      margin: 20px 0 100px;
+      margin: 20px 0 50px;
    }
 
    &__list {
       display: flex;
+      flex-wrap: wrap;
       gap: 40px;
       margin-bottom: 50px;
 
@@ -62,6 +71,7 @@ body {
          display: flex;
          align-items: center;
          gap: 10px;
+         cursor: pointer;
       }
 
       .active {
@@ -69,6 +79,10 @@ body {
          padding: 10px;
          border-radius: 20px;
       }
+   }
+
+   .list-mode {
+      margin-bottom: 20px;
    }
 
    &__desc {
@@ -90,23 +104,29 @@ body {
       border: 3px solid #febb02;
       display: flex;
       align-items: center;
-      justify-content: space-around;
-      padding: 15px 0;
       border-radius: 5px;
       position: absolute;
       bottom: -35px;
       width: 100%;
       max-width: 1024px;
 
+      :last-child {
+         border: none;
+         padding: 5px;
+      }
+
       &-item {
          display: flex;
          align-items: center;
          gap: 10px;
+         border-right: 3px solid #febb02;
+         padding: 15px;
 
          &__input {
             border: none;
             outline: 0;
             font-size: 16px;
+            width: 273px;
          }
 
          &__icon {
@@ -121,9 +141,13 @@ body {
          }
       }
    }
+
    &__btn {
       padding: 10px 15px;
+      width: 150px;
+      height: 49px;
    }
+
    .date {
       position: absolute;
       top: 50px;
@@ -200,8 +224,12 @@ body {
 
    &__title {
       position: absolute;
-      top: 20px;
+      bottom: 25px;
       left: 20px;
+
+      h1 {
+         text-transform: capitalize;
+      }
    }
 }
 
@@ -232,6 +260,7 @@ body {
       h1 {
          font-size: 18px;
          color: #444;
+         text-transform: capitalize;
       }
 
       h2 {
@@ -268,6 +297,7 @@ body {
 
       &-city {
          font-weight: 300;
+         text-transform: capitalize;
       }
 
       &-price {
@@ -326,12 +356,12 @@ body {
 }
 
 .footer {
-   width: 100%;
    width: 1024px;
 
    &__lists {
       width: 100%;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       margin-bottom: 50px;
 
@@ -447,6 +477,7 @@ body {
       width: 200px;
       height: 200px;
       object-fit: cover;
+      border-radius: 5px;
    }
 
    &-desc {
@@ -477,10 +508,6 @@ body {
    &-subtitle {
       font-size: 14px;
       font-weight: bold;
-   }
-
-   &-features {
-      font-size: 14px;
    }
 
    &-cancel {
@@ -528,10 +555,10 @@ body {
    }
 
    &-rating {
-      display: flex;
-      justify-content: space-between;
+      text-align: end;
 
       span {
+         padding-right: 10px;
          font-weight: 500;
       }
 
@@ -550,6 +577,7 @@ body {
    flex-direction: column;
    align-items: center;
    margin-top: 20px;
+   gap: 30px;
 
    &__wrapper {
       width: 100%;
@@ -599,6 +627,7 @@ body {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      gap: 5px;
 
       &-wrapper {
          width: 33%;
@@ -607,6 +636,7 @@ body {
 
    &__img {
       width: 100%;
+      height: 100%;
       object-fit: cover;
       cursor: pointer;
    }
@@ -632,6 +662,10 @@ body {
          display: flex;
          flex-direction: column;
          gap: 20px;
+
+         .city {
+            text-transform: capitalize;
+         }
 
          h1 {
             font-size: 18px;
@@ -699,4 +733,337 @@ body {
    font-size: 50px;
    color: lightgray;
    cursor: pointer;
+}
+
+.login {
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   &__container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+   }
+
+   &__input {
+      height: 50px;
+      padding: 20px;
+      outline: 0;
+   }
+
+   &__button {
+      border: none;
+      padding: 10px 20px;
+      background-color: #0071c2;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+
+      &:disabled {
+         background-color: #0071c28c;
+         cursor: not-allowed;
+      }
+   }
+
+   .reg {
+      color: #0071c2;
+   }
+}
+
+.loader {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 100px;
+
+   &-ring {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+
+      div {
+         box-sizing: border-box;
+         display: block;
+         position: absolute;
+         width: 64px;
+         height: 64px;
+         margin: 8px;
+         border: 8px solid #333;
+         border-radius: 50%;
+         animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+         border-color: #333 transparent transparent transparent;
+      }
+      div:nth-child(1) {
+         animation-delay: -0.45s;
+      }
+      div:nth-child(2) {
+         animation-delay: -0.3s;
+      }
+      div:nth-child(3) {
+         animation-delay: -0.15s;
+      }
+   }
+}
+
+@keyframes lds-ring {
+   0% {
+      transform: rotate(0deg);
+   }
+   100% {
+      transform: rotate(360deg);
+   }
+}
+
+.reserve {
+   width: 100vw;
+   height: 100vh;
+   background-color: rgba(0, 0, 0, 0.418);
+   position: fixed;
+   top: 0;
+   left: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   &__container {
+      background-color: white;
+      padding: 20px;
+      position: relative;
+   }
+
+   &-close {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      cursor: pointer;
+   }
+
+   &__item {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      padding: 20px;
+
+      &-info {
+         display: flex;
+         flex-direction: column;
+         gap: 5px;
+
+         &__title {
+            font-weight: 500;
+         }
+
+         &__desc {
+            font-weight: 300;
+         }
+
+         &__max {
+            font-size: 14px;
+         }
+
+         &__price {
+            font-weight: 500;
+         }
+      }
+
+      &-selectRooms {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 5px;
+         font-size: 12px;
+         color: gray;
+
+         .room {
+            display: flex;
+            flex-direction: column;
+         }
+      }
+   }
+
+   &-btn {
+      border: none;
+      padding: 10px 20px;
+      background-color: #0071c2;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100%;
+      margin-top: 20px;
+   }
+}
+
+@media screen and (max-width: 1040px) {
+   .home__title {
+      width: auto;
+   }
+
+   .header__search {
+      input {
+         width: auto;
+      }
+   }
+
+   .footer {
+      width: auto;
+
+      &__lists {
+         flex-wrap: wrap;
+      }
+   }
+
+   .hotel__images {
+      justify-content: space-around;
+   }
+
+   .slider__img {
+      width: 100%;
+   }
+
+   .arrow {
+      font-size: 35px;
+   }
+}
+
+@media screen and (max-width: 800px) {
+   .logo {
+      font-size: 20px;
+   }
+
+   .home__container {
+      padding: 0 10px;
+   }
+
+   .header__search {
+      flex-direction: column;
+
+      &-item {
+         border: 3px solid #febb02;
+         width: 100%;
+         justify-content: center;
+      }
+   }
+
+   .header__btn {
+      width: 100%;
+   }
+
+   .header__list {
+      margin-bottom: 220px;
+   }
+
+   .featured,
+   .fp {
+      flex-direction: column;
+   }
+
+   .property {
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+   }
+
+   .newsletter__title {
+      font-size: 28px;
+   }
+
+   .list {
+      &__wrapper {
+         flex-direction: column;
+      }
+
+      &__search {
+         position: static;
+      }
+   }
+}
+
+@media screen and (max-width: 730px) {
+   .hotel__images-wrapper {
+      width: 100%;
+   }
+
+   .hotel {
+      h1 {
+         font-size: 24px;
+      }
+
+      p,
+      span {
+         font-size: 16px;
+      }
+
+      &-btn {
+         top: 0;
+         padding: 5px 10px;
+      }
+   }
+   .slider__img {
+      height: 50%;
+   }
+}
+
+@media screen and (max-width: 510px) {
+   .newsletter__input {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      input {
+         margin-right: 0;
+      }
+   }
+
+   .search__item {
+      flex-direction: column;
+
+      &-img {
+         width: 100%;
+      }
+   }
+
+   .hotel__details {
+      flex-direction: column;
+   }
+
+   .slider__img {
+      height: 35%;
+   }
+
+   .arrow {
+      font-size: 25px;
+   }
+
+   .reserve__container {
+      padding: 10px;
+   }
+}
+
+@media screen and (max-width: 400px) {
+   .header__list {
+      gap: 15px;
+   }
+
+   .slider__img {
+      height: 25%;
+   }
+
+   .arrow {
+      font-size: 15px;
+   }
+
+   .hotel-btn {
+      display: none;
+   }
+
+   .reserve__container {
+      padding: 5px;
+   }
+
+   .reserve-close {
+      right: 15px;
+   }
 }

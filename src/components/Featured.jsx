@@ -1,39 +1,52 @@
+import { Link } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
+import ContentLoader from "react-content-loader";
+
 function Featured() {
+   const { data, loading } = useFetch("/hotels/countByCity");
+
+   const images = [
+      "https://www.telegraph.co.uk/content/dam/Travel/Destinations/Europe/Germany/Berlin/berlin-guide-lead-2018.jpg?imwidth=680",
+      "https://turizm.world/wp-content/uploads/2015/04/korolevskui-madrid.jpg",
+      "https://www.telegraph.co.uk/content/dam/Travel/Destinations/Europe/United%20Kingdom/London/london-aerial-thames-guide.jpg?imwidth=680",
+   ];
+
    return (
       <div className="featured">
-         <div className="featured__item">
-            <img
-               src="https://cf.bstatic.com/xdata/images/city/max500/957801.webp?k=a969e39bcd40cdcc21786ba92826063e3cb09bf307bcfeac2aa392b838e9b7a5&o="
-               alt=""
-               className="featured__img"
-            />
-            <div className="featured__title">
-               <h1>Dublin</h1>
-               <h2>123 properties</h2>
-            </div>
-         </div>
-         <div className="featured__item">
-            <img
-               src="https://cf.bstatic.com/xdata/images/city/max500/690334.webp?k=b99df435f06a15a1568ddd5f55d239507c0156985577681ab91274f917af6dbb&o="
-               alt=""
-               className="featured__img"
-            />
-            <div className="featured__title">
-               <h1>Reno</h1>
-               <h2>533 properties</h2>
-            </div>
-         </div>
-         <div className="featured__item">
-            <img
-               src="https://cf.bstatic.com/xdata/images/city/max500/689422.webp?k=2595c93e7e067b9ba95f90713f80ba6e5fa88a66e6e55600bd27a5128808fdf2&o="
-               alt=""
-               className="featured__img"
-            />
-            <div className="featured__title">
-               <h1>Austin</h1>
-               <h2>532 properties</h2>
-            </div>
-         </div>
+         {loading ? (
+            [...new Array(3)].map((_, i) => (
+               <ContentLoader
+                  key={i}
+                  speed={2}
+                  width={324}
+                  height={250}
+                  viewBox="0 0 324 250"
+                  backgroundColor="#f3f3f3"
+                  foregroundColor="#ecebeb"
+               >
+                  <rect x="0" y="0" rx="10" ry="10" width="324" height="250" />
+               </ContentLoader>
+            ))
+         ) : (
+            <>
+               {data &&
+                  images.map((img, i) => (
+                     <Link
+                        to="/hotels/city"
+                        state={{ city: data[i]?.city }}
+                        key={i}
+                     >
+                        <div className="featured__item">
+                           <img src={img} alt="" className="featured__img" />
+                           <div className="featured__title">
+                              <h1>{data[i]?.city}</h1>
+                              <h2>{data[i]?.count} properties</h2>
+                           </div>
+                        </div>
+                     </Link>
+                  ))}
+            </>
+         )}
       </div>
    );
 }

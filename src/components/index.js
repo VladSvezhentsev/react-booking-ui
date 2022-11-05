@@ -7,3 +7,5 @@ export { default as FeaturedProperties } from "./FeaturedProperties";
 export { default as Newsletter } from "./Newsletter";
 export { default as Footer } from "./Footer";
 export { default as SearchItem } from "./SearchItem";
+export { default as Reserve } from "./Reserve";
+export { default as Skeleton } from "./Skeleton";

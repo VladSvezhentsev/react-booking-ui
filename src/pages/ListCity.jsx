@@ -1,24 +1,45 @@
 import { Header, Navbar, SearchItem, Skeleton } from "../components";
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import useFetch from "../hooks/useFetch";
+import { SearchContext } from "../context/SearchContext";
 
-function List() {
+function ListCity() {
    const location = useLocation();
-   const [destination, setDestination] = useState(location.state.destination);
-   const [dates, setDates] = useState(location.state.dates);
+   const { city } = location.state;
    const [openDate, setOpenDate] = useState(false);
-   const [options, setOptions] = useState(location.state.options);
+   const [dates, setDates] = useState([
+      {
+         startDate: new Date(),
+         endDate: new Date(),
+         key: "selection",
+      },
+   ]);
+
+   const [options, setOptions] = useState({
+      adults: 2,
+      children: 0,
+      rooms: 1,
+   });
    const [min, setMin] = useState(0);
    const [max, setMax] = useState(999);
 
-   const { data, loading, reFetch } = useFetch(
-      `/hotels?city=${destination}&min>=${min}&max<=${max}`
-   );
+   const [destination, setDestination] = useState("");
+   const navigate = useNavigate();
 
-   const handleClick = () => reFetch();
+   const { dispatch } = useContext(SearchContext);
+
+   const handleSearch = () => {
+      dispatch({
+         type: "NEW_SEARCH",
+         payload: { destination, dates, options },
+      });
+      navigate("/hotels", { state: { destination, dates, options } });
+   };
+
+   const { data, loading } = useFetch(`/hotels?city=${city}`);
 
    return (
       <>
@@ -30,22 +51,31 @@ function List() {
                   <h1 className="list__search-title">Search</h1>
                   <div className="list__search-item">
                      <label>Destination</label>
-                     <input placeholder={destination} type="text" />
+                     <input
+                        type="text"
+                        placeholder={city}
+                        onChange={(e) => setDestination(e.target.value)}
+                     />
                   </div>
                   <div className="list__search-item">
                      <label>Check-in Date</label>
                      <span
                         className="date"
                         onClick={() => setOpenDate(!openDate)}
-                     >{`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(
-                        dates[0].endDate,
-                        "dd/MM/yyyy"
-                     )}`}</span>
+                     >
+                        {" "}
+                        {`${format(
+                           dates[0].startDate,
+                           "dd/MM/yyyy"
+                        )} to ${format(dates[0].endDate, "dd/MM/yyyy")}`}
+                     </span>
                      {openDate && (
                         <DateRange
+                           editableDateInputs={true}
                            onChange={(item) => setDates([item.selection])}
-                           minDate={new Date()}
+                           moveRangeOnFirstSelection={false}
                            ranges={dates}
+                           minDate={new Date()}
                         />
                      )}
                   </div>
@@ -107,7 +137,7 @@ function List() {
                         </div>
                      </div>
                   </div>
-                  <button className="list__search-btn" onClick={handleClick}>
+                  <button className="list__search-btn" onClick={handleSearch}>
                      Search
                   </button>
                </div>
@@ -128,4 +158,4 @@ function List() {
    );
 }
 
-export default List;
+export default ListCity;

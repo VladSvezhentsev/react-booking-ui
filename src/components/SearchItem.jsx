@@ -1,21 +1,19 @@
-function SearchItem() {
+import { Link } from "react-router-dom";
+
+function SearchItem({ item }) {
    return (
       <div className="search__item">
-         <img
-            src="https://cf.bstatic.com/xdata/images/hotel/square600/261707778.webp?k=fa6b6128468ec15e81f7d076b6f2473fa3a80c255582f155cae35f9edbffdd78&o=&s=1"
-            alt=""
-            className="search__item-img"
-         />
+         <Link to={`/hotels/${item._id}`}>
+            <img src={item.photos[0]} alt="" className="search__item-img" />
+         </Link>
          <div className="search__item-desc">
-            <h1 className="search__item-title">Tower Street Apartments</h1>
-            <span className="search__item-distance">500m from center</span>
+            <Link to={`/hotels/${item._id}`}>
+               <h1 className="search__item-title">{item.name}</h1>
+            </Link>
+            <span className="search__item-distance">
+               {item.distance}m from center
+            </span>
             <span className="search__item-taxi">Free airport taxi</span>
-            <span className="search__item-subtitle">
-               Studio Apartment with Air conditioning
-            </span>
-            <span className="search__item-features">
-               Entire studio • 1 bathroom • 21m² 1 full bed
-            </span>
             <span className="search__item-cancel">Free cancellation </span>
             <span className="search__item-cancel__subtitle">
                You can cancel later, so lock in this great price today!
@@ -23,17 +21,21 @@ function SearchItem() {
          </div>
          <div className="search__item-details">
             <div className="search__item-rating">
-               <span>Excellent</span>
-               <button>8.9</button>
+               <span>{item.ratingW}</span>
+               <button>{item.rating}</button>
             </div>
             <div className="search__item-details__texts">
-               <span className="search__item-details__texts-price">$112</span>
+               <span className="search__item-details__texts-price">
+                  ${item.cheapestPrice}
+               </span>
                <span className="search__item-details__texts-tax">
                   Includes taxes and fees
                </span>
-               <button className="search__item-details__texts-btn">
-                  See availability
-               </button>
+               <Link to={`/hotels/${item._id}`}>
+                  <button className="search__item-details__texts-btn">
+                     See availability
+                  </button>
+               </Link>
             </div>
          </div>
       </div>
