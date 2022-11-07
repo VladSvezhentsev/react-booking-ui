@@ -20,7 +20,9 @@ function Hotel() {
    const id = location.pathname.split("/")[2];
    const navigate = useNavigate();
 
-   const { data, loading } = useFetch(`/hotels/find/${id}`);
+   const { data, loading } = useFetch(
+      `https://vlad-reactbooking.herokuapp.com/hotels/find/${id}`
+   );
 
    const { dates, options } = useContext(SearchContext);
    const { user } = useContext(AuthContext);

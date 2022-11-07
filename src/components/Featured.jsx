@@ -34,7 +34,7 @@ function Featured() {
                {data &&
                   images.map((img, i) => (
                      <Link
-                        to="https://vlad-reactbooking.herokuapp.com/hotels/city"
+                        to="/hotels/city"
                         state={{ city: data[i]?.city }}
                         key={i}
                      >
