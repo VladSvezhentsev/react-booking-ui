@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 
 function FeaturedProperties() {
-   const { data, loading } = useFetch("/hotels?featured=true&limit=4");
+   const { data, loading } = useFetch(
+      "https://vlad-reactbooking.herokuapp.com/hotels?featured=true&limit=4"
+   );
 
    return (
       <div className="fp">

@@ -39,7 +39,9 @@ function ListCity() {
       navigate("/hotels", { state: { destination, dates, options } });
    };
 
-   const { data, loading } = useFetch(`/hotels?city=${city}`);
+   const { data, loading } = useFetch(
+      `https://vlad-reactbooking.herokuapp.com/hotels?city=${city}`
+   );
 
    return (
       <>

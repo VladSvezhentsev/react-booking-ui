@@ -15,7 +15,7 @@ function List() {
    const [max, setMax] = useState(999);
 
    const { data, loading, reFetch } = useFetch(
-      `/hotels?city=${destination}&min>=${min}&max<=${max}`
+      `https://vlad-reactbooking.herokuapp.com/hotels?city=${destination}&min>=${min}&max<=${max}`
    );
 
    const handleClick = () => reFetch();

@@ -3,7 +3,9 @@ import useFetch from "../hooks/useFetch";
 import ContentLoader from "react-content-loader";
 
 function Featured() {
-   const { data, loading } = useFetch("/hotels/countByCity");
+   const { data, loading } = useFetch(
+      "https://vlad-reactbooking.herokuapp.com/hotels/countByCity"
+   );
 
    const images = [
       "https://www.telegraph.co.uk/content/dam/Travel/Destinations/Europe/Germany/Berlin/berlin-guide-lead-2018.jpg?imwidth=680",
@@ -32,7 +34,7 @@ function Featured() {
                {data &&
                   images.map((img, i) => (
                      <Link
-                        to="/hotels/city"
+                        to="https://vlad-reactbooking.herokuapp.com/hotels/city"
                         state={{ city: data[i]?.city }}
                         key={i}
                      >
