@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { SearchContext } from "../context/SearchContext";
-import { axiosInstance } from "../config";
+import axios from "axios";
 
 function Reserve({ setOpen, id }) {
    const [selectedRooms, setSelectedRooms] = useState([]);
@@ -49,7 +49,7 @@ function Reserve({ setOpen, id }) {
       try {
          await Promise.all(
             selectedRooms.map((id) => {
-               const res = axiosInstance.put(`/rooms/availability/${id}`, {
+               const res = axios.put(`/rooms/availability/${id}`, {
                   dates: allDates,
                });
                return res.data;

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { axiosInstance } from "../config";
+import axios from "axios";
 
 function Register() {
    const [credentials, setCredentials] = useState({
@@ -21,7 +21,7 @@ function Register() {
       e.preventDefault();
       dispatch({ type: "LOGIN_START" });
       try {
-         const res = await axiosInstance.post("/auth/register", credentials);
+         const res = await axios.post("/auth/register", credentials);
          dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
          setSuccess(true);
       } catch (error) {
