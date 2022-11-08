@@ -32,6 +32,7 @@ function Search() {
    const [destination, setDestination] = useState("");
    const navigate = useNavigate();
    const dateRef = useRef(null);
+   const optionsRef = useRef(null);
 
    const { dispatch } = useContext(SearchContext);
 
@@ -59,7 +60,14 @@ function Search() {
          }
       };
 
+      const handleClickOutsideOptions = (e) => {
+         if (!e.composedPath().includes(optionsRef.current)) {
+            setOpenOptions(false);
+         }
+      };
+
       document.body.addEventListener("click", handleClickOutside);
+      document.body.addEventListener("click", handleClickOutsideOptions);
 
       return () =>
          document.body.removeEventListener("click", handleClickOutside);
@@ -79,16 +87,15 @@ function Search() {
                onChange={(e) => setDestination(e.target.value)}
             />
          </div>
-         <div
-            className="header__search-item"
-            ref={dateRef}
-            onClick={() => setOpenDate(true)}
-         >
+         <div className="header__search-item" ref={dateRef}>
             <FontAwesomeIcon
                icon={faCalendarDays}
                className="header__search-item__icon"
             />
-            <span className="header__search-item__text">
+            <span
+               className="header__search-item__text"
+               onClick={() => setOpenDate(!openDate)}
+            >
                {format(dates[0].startDate, "dd/MM/yyyy")} to{" "}
                {format(dates[0].endDate, "dd/MM/yyyy")}
             </span>
@@ -103,7 +110,7 @@ function Search() {
                />
             )}
          </div>
-         <div className="header__search-item">
+         <div className="header__search-item" ref={optionsRef}>
             <FontAwesomeIcon
                icon={faPerson}
                className="header__search-item__icon"

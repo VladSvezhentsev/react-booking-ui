@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
@@ -20,7 +20,10 @@ function Login() {
       e.preventDefault();
       dispatch({ type: "LOGIN_START" });
       try {
-         const res = await axios.post("/auth/login", credentials);
+         const res = await axios.post(
+            "https://vlad-reactbooking.herokuapp.com/auth/login",
+            credentials
+         );
          dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
          navigate("/");
       } catch (error) {
@@ -52,6 +55,12 @@ function Login() {
             >
                Login
             </button>
+            <p>
+               Don't have an account?{" "}
+               <Link to="/register">
+                  <span className="reg">Register!</span>
+               </Link>
+            </p>
             {error && <span>{error.message}</span>}
          </div>
       </div>
