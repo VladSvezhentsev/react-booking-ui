@@ -21,7 +21,7 @@ function Login() {
       dispatch({ type: "LOGIN_START" });
       try {
          const res = await axios.post(
-            "https://vlad-reactbooking.herokuapp.com/auth/login",
+            "https://react-booking-production.up.railway.app/auth/login",
             credentials
          );
          dispatch({ type: "LOGIN_SUCCESS", payload: res.data });

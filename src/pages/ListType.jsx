@@ -40,7 +40,7 @@ function ListType() {
    };
 
    const { data, loading } = useFetch(
-      `https://vlad-reactbooking.herokuapp.com/hotels?type=${type}`
+      `https://react-booking-production.up.railway.app/hotels?type=${type}`
    );
 
    return (

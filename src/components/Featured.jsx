@@ -4,7 +4,7 @@ import ContentLoader from "react-content-loader";
 
 function Featured() {
    const { data, loading } = useFetch(
-      "https://vlad-reactbooking.herokuapp.com/hotels/countByCity"
+      "https://react-booking-production.up.railway.app/hotels/countByCity"
    );
 
    const images = [

@@ -21,7 +21,7 @@ function Hotel() {
    const navigate = useNavigate();
 
    const { data, loading } = useFetch(
-      `https://vlad-reactbooking.herokuapp.com/hotels/find/${id}`
+      `https://react-booking-production.up.railway.app/hotels/find/${id}`
    );
 
    const { dates, options } = useContext(SearchContext);

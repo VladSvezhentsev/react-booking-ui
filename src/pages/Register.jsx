@@ -22,7 +22,7 @@ function Register() {
       dispatch({ type: "LOGIN_START" });
       try {
          const res = await axios.post(
-            "https://vlad-reactbooking.herokuapp.com/auth/register",
+            "https://react-booking-production.up.railway.app/auth/register",
             credentials
          );
          dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
