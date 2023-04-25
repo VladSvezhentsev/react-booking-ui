@@ -15,7 +15,7 @@ function List() {
    const [max, setMax] = useState(999);
 
    const { data, loading, reFetch } = useFetch(
-      `https://react-booking-production.up.railway.app/hotels?city=${destination}&min>=${min}&max<=${max}`
+      `https://react-booking-7a31.onrender.com/hotels?city=${destination}&min>=${min}&max<=${max}`
    );
 
    const handleClick = () => reFetch();

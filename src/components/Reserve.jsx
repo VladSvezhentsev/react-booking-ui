@@ -8,7 +8,7 @@ import axios from "axios";
 function Reserve({ setOpen, id }) {
    const [selectedRooms, setSelectedRooms] = useState([]);
    const { data } = useFetch(
-      `https://react-booking-production.up.railway.app/hotels/room/${id}`
+      `https://react-booking-7a31.onrender.com/hotels/room/${id}`
    );
    const { dates } = useContext(SearchContext);
 

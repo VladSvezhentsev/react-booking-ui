@@ -40,7 +40,7 @@ function ListType() {
    };
 
    const { data, loading } = useFetch(
-      `https://react-booking-production.up.railway.app/hotels?type=${type}`
+      `https://react-booking-7a31.onrender.com/hotels?type=${type}`
    );
 
    return (

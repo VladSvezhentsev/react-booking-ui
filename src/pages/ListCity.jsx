@@ -40,7 +40,7 @@ function ListCity() {
    };
 
    const { data, loading } = useFetch(
-      `https://react-booking-production.up.railway.app/hotels?city=${city}`
+      `https://react-booking-7a31.onrender.com/hotels?city=${city}`
    );
 
    return (

@@ -21,7 +21,7 @@ function Hotel() {
    const navigate = useNavigate();
 
    const { data, loading } = useFetch(
-      `https://react-booking-production.up.railway.app/hotels/find/${id}`
+      `https://react-booking-7a31.onrender.com/hotels/find/${id}`
    );
 
    const { dates, options } = useContext(SearchContext);

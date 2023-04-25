@@ -22,7 +22,7 @@ function Register() {
       dispatch({ type: "LOGIN_START" });
       try {
          const res = await axios.post(
-            "https://react-booking-production.up.railway.app/auth/register",
+            "https://react-booking-7a31.onrender.com/auth/register",
             credentials
          );
          dispatch({ type: "LOGIN_SUCCESS", payload: res.data });

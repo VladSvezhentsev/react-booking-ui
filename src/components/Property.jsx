@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 
 function Property() {
    const { data, loading } = useFetch(
-      "https://react-booking-production.up.railway.app/hotels/countByType"
+      "https://react-booking-7a31.onrender.com/hotels/countByType"
    );
 
    const images = [

@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 
 function FeaturedProperties() {
    const { data, loading } = useFetch(
-      "https://react-booking-production.up.railway.app/hotels?featured=true&limit=4"
+      "https://react-booking-7a31.onrender.com/hotels?featured=true&limit=4"
    );
 
    return (
